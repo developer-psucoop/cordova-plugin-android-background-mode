@@ -19,11 +19,15 @@
   under the License.
 */
 
-#import <AVFoundation/AVFoundation.h>
+//#import <AVFoundation/AVFoundation.h>
+
 #import <Cordova/CDVPlugin.h>
 
 @interface APPBackgroundMode : CDVPlugin {
-    AVAudioPlayer* audioPlayer;
+  
+    //************** Do nothing in iOS ***************
+    //AVAudioPlayer* audioPlayer;
+
     BOOL enabled;
 }
 

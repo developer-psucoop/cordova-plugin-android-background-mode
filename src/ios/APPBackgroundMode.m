@@ -42,7 +42,8 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 + (void) load
 {
-    [self swizzleWKWebViewEngine];
+    //************** Do nothing in iOS ***************
+    //[self swizzleWKWebViewEngine];
 }
 
 /**
@@ -51,9 +52,11 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
 - (void) pluginInitialize
 {
     enabled = NO;
-    [self configureAudioPlayer];
-    [self configureAudioSession];
-    [self observeLifeCycle];
+
+    //************** Do nothing in iOS ***************
+    // [self configureAudioPlayer];
+    // [self configureAudioSession];
+    // [self observeLifeCycle];
 }
 
 /**
@@ -61,23 +64,24 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) observeLifeCycle
 {
-    NSNotificationCenter* listener = [NSNotificationCenter
-                                      defaultCenter];
+    //************** Do nothing in iOS ***************
+    // NSNotificationCenter* listener = [NSNotificationCenter
+    //                                   defaultCenter];
 
-        [listener addObserver:self
-                     selector:@selector(keepAwake)
-                         name:UIApplicationDidEnterBackgroundNotification
-                       object:nil];
+    //     [listener addObserver:self
+    //                  selector:@selector(keepAwake)
+    //                      name:UIApplicationDidEnterBackgroundNotification
+    //                    object:nil];
 
-        [listener addObserver:self
-                     selector:@selector(stopKeepingAwake)
-                         name:UIApplicationWillEnterForegroundNotification
-                       object:nil];
+    //     [listener addObserver:self
+    //                  selector:@selector(stopKeepingAwake)
+    //                      name:UIApplicationWillEnterForegroundNotification
+    //                    object:nil];
 
-        [listener addObserver:self
-                     selector:@selector(handleAudioSessionInterruption:)
-                         name:AVAudioSessionInterruptionNotification
-                       object:nil];
+    //     [listener addObserver:self
+    //                  selector:@selector(handleAudioSessionInterruption:)
+    //                      name:AVAudioSessionInterruptionNotification
+    //                    object:nil];
 }
 
 #pragma mark -
@@ -89,11 +93,15 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) enable:(CDVInvokedUrlCommand*)command
 {
-    if (enabled)
-        return;
+    enabled = NO;
+    return;
 
-    enabled = YES;
-    [self execCallback:command];
+    //************** Do nothing in iOS ***************
+    // if (enabled)
+    //     return;
+
+    // enabled = YES;
+    // [self execCallback:command];
 }
 
 /**
@@ -102,12 +110,16 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) disable:(CDVInvokedUrlCommand*)command
 {
-    if (!enabled)
-        return;
-
     enabled = NO;
-    [self stopKeepingAwake];
-    [self execCallback:command];
+    return;
+
+    //************** Do nothing in iOS ***************
+    // if (!enabled)
+    //     return;
+
+    // enabled = NO;
+    // [self stopKeepingAwake];
+    // [self execCallback:command];
 }
 
 #pragma mark -
@@ -118,11 +130,14 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) keepAwake
 {
-    if (!enabled)
-        return;
+    return;
 
-    [audioPlayer play];
-    [self fireEvent:kAPPBackgroundEventActivate];
+    //************** Do nothing in iOS ***************
+    // if (!enabled)
+    //     return;
+
+    // [audioPlayer play];
+    // [self fireEvent:kAPPBackgroundEventActivate];
 }
 
 /**
@@ -130,15 +145,16 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) stopKeepingAwake
 {
-    if (TARGET_IPHONE_SIMULATOR) {
-        NSLog(@"BackgroundMode: On simulator apps never pause in background!");
-    }
+    //************** Do nothing in iOS ***************
+    // if (TARGET_IPHONE_SIMULATOR) {
+    //     NSLog(@"BackgroundMode: On simulator apps never pause in background!");
+    // }
 
-    if (audioPlayer.isPlaying) {
-        [self fireEvent:kAPPBackgroundEventDeactivate];
-    }
+    // if (audioPlayer.isPlaying) {
+    //     [self fireEvent:kAPPBackgroundEventDeactivate];
+    // }
 
-    [audioPlayer pause];
+    // [audioPlayer pause];
 }
 
 /**
@@ -146,17 +162,18 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) configureAudioPlayer
 {
-    NSString* path = [[NSBundle mainBundle]
-                      pathForResource:@"appbeep" ofType:@"wav"];
+    //************** Do nothing in iOS ***************
+    // NSString* path = [[NSBundle mainBundle]
+    //                   pathForResource:@"appbeep" ofType:@"wav"];
 
-    NSURL* url = [NSURL fileURLWithPath:path];
+    // NSURL* url = [NSURL fileURLWithPath:path];
 
 
-    audioPlayer = [[AVAudioPlayer alloc]
-                   initWithContentsOfURL:url error:NULL];
+    // audioPlayer = [[AVAudioPlayer alloc]
+    //                initWithContentsOfURL:url error:NULL];
 
-    audioPlayer.volume        = 0;
-    audioPlayer.numberOfLoops = -1;
+    // audioPlayer.volume        = 0;
+    // audioPlayer.numberOfLoops = -1;
 };
 
 /**
@@ -164,19 +181,20 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) configureAudioSession
 {
-    AVAudioSession* session = [AVAudioSession
-                               sharedInstance];
+    //************** Do nothing in iOS ***************
+    // AVAudioSession* session = [AVAudioSession
+    //                            sharedInstance];
 
-    // Don't activate the audio session yet
-    [session setActive:NO error:NULL];
+    // // Don't activate the audio session yet
+    // [session setActive:NO error:NULL];
 
-    // Play music even in background and dont stop playing music
-    // even another app starts playing sound
-    [session setCategory:AVAudioSessionCategoryPlayback
-                   error:NULL];
+    // // Play music even in background and dont stop playing music
+    // // even another app starts playing sound
+    // [session setCategory:AVAudioSessionCategoryPlayback
+    //                error:NULL];
 
-    // Active the audio session
-    [session setActive:YES error:NULL];
+    // // Active the audio session
+    // [session setActive:YES error:NULL];
 };
 
 #pragma mark -
@@ -187,11 +205,12 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) execCallback:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult *result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK];
+    //************** Do nothing in iOS ***************
+    // CDVPluginResult *result = [CDVPluginResult
+    //                            resultWithStatus:CDVCommandStatus_OK];
 
-    [self.commandDelegate sendPluginResult:result
-                                callbackId:command.callbackId];
+    // [self.commandDelegate sendPluginResult:result
+    //                             callbackId:command.callbackId];
 }
 
 /**
@@ -199,8 +218,9 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) handleAudioSessionInterruption:(NSNotification*)notification
 {
-    [self fireEvent:kAPPBackgroundEventDeactivate];
-    [self keepAwake];
+    //************** Do nothing in iOS ***************
+    // [self fireEvent:kAPPBackgroundEventDeactivate];
+    // [self keepAwake];
 }
 
 /**
@@ -208,7 +228,10 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 + (BOOL) isRunningWebKit
 {
-    return IsAtLeastiOSVersion(@"8.0") && NSClassFromString(@"CDVWKWebViewEngine");
+    return false;
+
+    //************** Do nothing in iOS ***************
+    // return IsAtLeastiOSVersion(@"8.0") && NSClassFromString(@"CDVWKWebViewEngine");
 }
 
 /**
@@ -216,21 +239,22 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) fireEvent:(NSString*)event
 {
-    NSString* active =
-    [event isEqualToString:kAPPBackgroundEventActivate] ? @"true" : @"false";
+    //************** Do nothing in iOS ***************
+    // NSString* active =
+    // [event isEqualToString:kAPPBackgroundEventActivate] ? @"true" : @"false";
 
-    NSString* flag = [NSString stringWithFormat:@"%@._isActive=%@;",
-                      kAPPBackgroundJsNamespace, active];
+    // NSString* flag = [NSString stringWithFormat:@"%@._isActive=%@;",
+    //                   kAPPBackgroundJsNamespace, active];
 
-    NSString* depFn = [NSString stringWithFormat:@"%@.on%@();",
-                       kAPPBackgroundJsNamespace, event];
+    // NSString* depFn = [NSString stringWithFormat:@"%@.on%@();",
+    //                    kAPPBackgroundJsNamespace, event];
 
-    NSString* fn = [NSString stringWithFormat:@"%@.fireEvent('%@');",
-                    kAPPBackgroundJsNamespace, event];
+    // NSString* fn = [NSString stringWithFormat:@"%@.fireEvent('%@');",
+    //                 kAPPBackgroundJsNamespace, event];
 
-    NSString* js = [NSString stringWithFormat:@"%@%@%@", flag, depFn, fn];
+    // NSString* js = [NSString stringWithFormat:@"%@%@%@", flag, depFn, fn];
 
-    [self.commandDelegate evalJs:js];
+    // [self.commandDelegate evalJs:js];
 }
 
 #pragma mark -
