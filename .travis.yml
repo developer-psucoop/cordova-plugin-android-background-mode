@@ -51,16 +51,14 @@ before_script:
 - cordova create myApp org.apache.cordova.myApp myApp
 - cd myApp
 - sed -i -r 's:\(<content.*\):\1<preference name="android-targetSdkVersion" value="16" />:' config.xml
-- cordova platform add android@latest browser@latest ios@latest
-- cordova plugin add cordova-plugin-background-mode --searchpath $TRAVIS_BUILD_DIR
+- cordova platform add android@latest browser@latest
+- cordova plugin add cordova-plugin-android-background-mode --searchpath $TRAVIS_BUILD_DIR 
 - cordova platform ls
 - cordova plugin ls
 
 script:
 - cordova build android
 - cordova build browser
-- cordova build ios
 - cordova plugin add cordova-plugin-crosswalk-webview
 - cordova plugin add cordova-plugin-wkwebview-engine
 - cordova build android
-- cordova build ios
