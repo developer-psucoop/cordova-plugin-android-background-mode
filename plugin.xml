@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-android-background-mode"
-        version="0.7.3">
+        version="0.7.4">
 
     <name>BackgroundMode</name>
 
@@ -40,13 +40,13 @@
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-
+        <!--
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
                 <string>audio</string>
             </array>
         </config-file>
-
+        -->
         <resource-file src="appbeep.wav" />
 
         <header-file src="src/ios/APPBackgroundMode.h" />
